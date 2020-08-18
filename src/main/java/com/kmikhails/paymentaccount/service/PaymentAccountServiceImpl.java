@@ -20,7 +20,7 @@ public class PaymentAccountServiceImpl implements PaymentAccountService {
    }
    
    @Override
-   public void save(PaymentAccount paymentAccount) {
-      paymentAccountRepository.save(paymentAccount);
+   public PaymentAccount save(PaymentAccount paymentAccount) {
+      return paymentAccountRepository.save(paymentAccount);
    }
 }

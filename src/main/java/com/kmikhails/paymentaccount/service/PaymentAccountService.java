@@ -6,5 +6,5 @@ public interface PaymentAccountService {
 
    PaymentAccount getPaymentAccountInfo(String mcUsername);
    
-   void save(PaymentAccount paymentAccount);
+   PaymentAccount save(PaymentAccount paymentAccount);
 }

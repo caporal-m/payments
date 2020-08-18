@@ -27,15 +27,15 @@ public class AccountController {
    public ResponseEntity<PaymentAccount> getPaymentAccountInfo(@RequestParam(value = "mcUsername") String mcUsername) {
       try {
          PaymentAccount paymentAccount = paymentAccountService.getPaymentAccountInfo(mcUsername);
-         return new ResponseEntity<PaymentAccount>(paymentAccount, HttpStatus.OK);
+         return new ResponseEntity<>(paymentAccount, HttpStatus.OK);
      } catch (NoSuchElementException e) {
-         return new ResponseEntity<PaymentAccount>(HttpStatus.NOT_FOUND);
+         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
      }  
    }
    
    @PostMapping("/add")
-   public void addPaymentAccountInfo(@RequestBody PaymentAccount paymentAccount) {
-      paymentAccountService.save(paymentAccount);
+   public ResponseEntity<PaymentAccount> addPaymentAccountInfo(@RequestBody PaymentAccount paymentAccount) {
+      return new ResponseEntity<>(paymentAccountService.save(paymentAccount), HttpStatus.CREATED);
    }
    
    @PutMapping("/info")
@@ -44,9 +44,9 @@ public class AccountController {
       try {
          PaymentAccount existPaymentAccount = paymentAccountService.getPaymentAccountInfo(mcUsername);
          paymentAccountService.save(existPaymentAccount);
-         return new ResponseEntity<PaymentAccount>(HttpStatus.OK);
+         return new ResponseEntity<>(HttpStatus.OK);
      } catch (NoSuchElementException e) {
-         return new ResponseEntity<PaymentAccount>(HttpStatus.NOT_FOUND);
+         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
      }      
    }
 }
