@@ -9,19 +9,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kmikhails.paymentaccount.model.PaymentAccount;
 import com.kmikhails.paymentaccount.service.PaymentAccountService;
 
-@RestController()
+@RestController
+@RequestMapping("/account")
 public class AccountController {
    
    @Autowired
    private PaymentAccountService paymentAccountService;
 
-   @GetMapping("/account/info")
+   @GetMapping("/info")
    public ResponseEntity<PaymentAccount> getPaymentAccountInfo(@RequestParam(value = "mcUsername") String mcUsername) {
       try {
          PaymentAccount paymentAccount = paymentAccountService.getPaymentAccountInfo(mcUsername);
@@ -31,12 +33,12 @@ public class AccountController {
      }  
    }
    
-   @PostMapping("/account/add")
+   @PostMapping("/add")
    public void addPaymentAccountInfo(@RequestBody PaymentAccount paymentAccount) {
       paymentAccountService.save(paymentAccount);
    }
    
-   @PutMapping("/account/info")
+   @PutMapping("/info")
    public ResponseEntity<PaymentAccount> updatePaymentAccountInfo(@RequestBody PaymentAccount paymentAccount,
          @RequestParam(value = "mcUsername") String mcUsername) {
       try {
