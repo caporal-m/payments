@@ -8,7 +8,7 @@
    <changeSet id="1.0.0" author="kmikhails">
       <createTable tableName="payment_account">
       
-         <column name="mc_Username" type="VARCHAR(255)">
+         <column name="mc_username" type="VARCHAR(255)">
             <constraints primaryKey="true" nullable="false" />
          </column>
 

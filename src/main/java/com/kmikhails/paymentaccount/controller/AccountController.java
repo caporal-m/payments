@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kmikhails.paymentaccount.dto.PaymentAccountDto;
 import com.kmikhails.paymentaccount.model.PaymentAccount;
 import com.kmikhails.paymentaccount.service.PaymentAccountService;
 
@@ -24,27 +25,30 @@ public class AccountController {
    private PaymentAccountService paymentAccountService;
 
    @GetMapping("/info")
-   public ResponseEntity<PaymentAccount> getPaymentAccountInfo(@RequestParam(value = "mcUsername") String mcUsername) {
+   public ResponseEntity<PaymentAccountDto> getPaymentAccountInfo(@RequestParam(value = "mcUsername") String mcUsername) {
       try {
          PaymentAccount paymentAccount = paymentAccountService.getPaymentAccountInfo(mcUsername);
-         return new ResponseEntity<>(paymentAccount, HttpStatus.OK);
+         
+         return new ResponseEntity<>(PaymentAccountDto.fromPaymentAccount(paymentAccount), HttpStatus.OK);
      } catch (NoSuchElementException e) {
          return new ResponseEntity<>(HttpStatus.NOT_FOUND);
      }  
    }
    
    @PostMapping("/add")
-   public ResponseEntity<PaymentAccount> addPaymentAccountInfo(@RequestBody PaymentAccount paymentAccount) {
-      return new ResponseEntity<>(paymentAccountService.save(paymentAccount), HttpStatus.CREATED);
+   public ResponseEntity<PaymentAccountDto> addPaymentAccountInfo(@RequestBody PaymentAccount paymentAccount) {
+      return new ResponseEntity<>(PaymentAccountDto.fromPaymentAccount(paymentAccountService.save(paymentAccount)),
+            HttpStatus.CREATED);
    }
    
    @PutMapping("/info")
-   public ResponseEntity<PaymentAccount> updatePaymentAccountInfo(@RequestBody PaymentAccount paymentAccount,
+   public ResponseEntity<PaymentAccountDto> updatePaymentAccountInfo(@RequestBody PaymentAccount paymentAccount,
          @RequestParam(value = "mcUsername") String mcUsername) {
       try {
          PaymentAccount existPaymentAccount = paymentAccountService.getPaymentAccountInfo(mcUsername);
-         paymentAccountService.save(existPaymentAccount);
-         return new ResponseEntity<>(HttpStatus.OK);
+         
+         return new ResponseEntity<>(PaymentAccountDto.fromPaymentAccount(paymentAccountService.save(existPaymentAccount)),
+               HttpStatus.OK);
      } catch (NoSuchElementException e) {
          return new ResponseEntity<>(HttpStatus.NOT_FOUND);
      }      
