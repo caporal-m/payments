@@ -16,6 +16,7 @@
    <properties>
       <java.version>1.8</java.version>
       <postgresql.version>42.2.12</postgresql.version>
+      <liquibase.version>4.0.0</liquibase.version>
    </properties>
 
    <dependencies>
@@ -42,6 +43,11 @@
          <groupId>org.postgresql</groupId>
          <artifactId>postgresql</artifactId>
          <version>${postgresql.version}</version>
+      </dependency>
+      <dependency>
+         <groupId>org.liquibase</groupId>
+         <artifactId>liquibase-core</artifactId>
+         <version>${liquibase.version}</version>
       </dependency>
    </dependencies>
 

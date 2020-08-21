@@ -1,0 +1,58 @@
+<databaseChangeLog
+   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+
+   <changeSet id="1.0.0" author="kmikhails">
+      <createTable tableName="payment_account">
+      
+         <column name="mc_Username" type="VARCHAR(255)">
+            <constraints primaryKey="true" nullable="false" />
+         </column>
+
+         <column name="change_date" type="TIMESTAMP">
+            <constraints nullable="false" />
+         </column>
+
+         <column name="contractor_first_name" type="VARCHAR(100)">
+            <constraints nullable="false" />
+         </column>
+
+         <column name="contractor_second_name"
+            type="VARCHAR(100)">
+            <constraints nullable="false" />
+         </column>
+
+         <column name="contractor_last_name" type="VARCHAR(100)">
+            <constraints nullable="false" />
+         </column>
+
+         <column name="contractor_inn" type="VARCHAR(100)">
+            <constraints nullable="false" />
+         </column>
+
+         <column name="contractor_phone" type="VARCHAR(100)">
+            <constraints nullable="false" />
+         </column>
+
+         <column name="status" type="VARCHAR(25)">
+            <constraints nullable="false" />
+         </column>
+
+         <column name="request_id" type="VARCHAR(255)">
+            <constraints nullable="false" />
+         </column>
+
+         <column name="error_message" type="VARCHAR(255)">
+            <constraints nullable="false" />
+         </column>
+
+         <column name="error_code" type="VARCHAR(255)">
+            <constraints nullable="false" />
+         </column>
+
+      </createTable>
+   </changeSet>
+</databaseChangeLog>
