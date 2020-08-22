@@ -1,8 +1,11 @@
 package com.kmikhails.paymentaccount.controller;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kmikhails.paymentaccount.dto.PaymentAccountDto;
+import com.kmikhails.paymentaccount.dto.PaymentAccountListDto;
 import com.kmikhails.paymentaccount.model.PaymentAccount;
 import com.kmikhails.paymentaccount.service.PaymentAccountService;
 
@@ -66,5 +70,19 @@ public class AccountController {
      } catch (NoSuchElementException e) {
          return new ResponseEntity<>(HttpStatus.NOT_FOUND);
      }      
+   }
+   
+   @GetMapping("/list/status")
+   public PaymentAccountListDto getListByStatus(@RequestParam(value = "status") String status, 
+         @RequestParam(value = "direction") String direction) {
+      Direction sortDirection;
+      if ("asc".equals(direction)) {
+         sortDirection = Direction.ASC;
+      } else {
+         sortDirection = Direction.DESC;
+      }
+      List<PaymentAccount> paymentAccounts = paymentAccountService.getListByStatus(status, Sort.by(sortDirection, "changeDate"));
+      
+      return new PaymentAccountListDto(paymentAccounts);
    }
 }
