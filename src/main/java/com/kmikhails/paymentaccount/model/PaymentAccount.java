@@ -1,10 +1,11 @@
 package com.kmikhails.paymentaccount.model;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.Table; 
 
 @Entity
 @Table(name = "payment_account")
@@ -139,5 +140,41 @@ public class PaymentAccount {
 
    public void setStatus(String status) {
       this.status = status;
+   }
+
+   @Override
+   public String toString() {
+      return "PaymentAccount [mcUsername=" + mcUsername + ", changeDate=" + changeDate + ", contractorFirstName="
+            + contractorFirstName + ", contractorInn=" + contractorInn + ", contractorLastName=" + contractorLastName
+            + ", contractorPhone=" + contractorPhone + ", contractorSecondName=" + contractorSecondName + ", errorCode="
+            + errorCode + ", errorMessage=" + errorMessage + ", requestId=" + requestId + ", status=" + status + "]";
+   }
+
+   @Override
+   public int hashCode() {
+      return Objects.hash(changeDate, contractorFirstName, contractorInn, contractorLastName, contractorPhone,
+            contractorSecondName, errorCode, errorMessage, mcUsername, requestId, status);
+   }
+
+   @Override
+   public boolean equals(Object obj) {
+      if (this == obj) {
+         return true;
+      }
+      if (obj == null || getClass() != obj.getClass()) {
+         return false;
+      }
+      PaymentAccount paymentAccount = (PaymentAccount) obj;
+      return Objects.equals(changeDate, paymentAccount.changeDate)
+            && Objects.equals(contractorFirstName, paymentAccount.contractorFirstName)
+            && Objects.equals(contractorInn, paymentAccount.contractorInn)
+            && Objects.equals(contractorLastName, paymentAccount.contractorLastName)
+            && Objects.equals(contractorPhone, paymentAccount.contractorPhone)
+            && Objects.equals(contractorSecondName, paymentAccount.contractorSecondName)
+            && Objects.equals(errorCode, paymentAccount.errorCode) 
+            && Objects.equals(errorMessage, paymentAccount.errorMessage)
+            && Objects.equals(mcUsername, paymentAccount.mcUsername) 
+            && Objects.equals(requestId, paymentAccount.requestId)
+            && Objects.equals(status, paymentAccount.status);
    }
 }

@@ -36,16 +36,30 @@ public class AccountController {
    }
    
    @PostMapping("/add")
-   public ResponseEntity<PaymentAccountDto> addPaymentAccountInfo(@RequestBody PaymentAccount paymentAccount) {
+   public ResponseEntity<PaymentAccountDto> addPaymentAccountInfo(@RequestBody PaymentAccountDto paymentAccountDto) {
+      PaymentAccount paymentAccount = PaymentAccountDto.toPaymentAccount(paymentAccountDto);
+      
       return new ResponseEntity<>(PaymentAccountDto.fromPaymentAccount(paymentAccountService.save(paymentAccount)),
             HttpStatus.CREATED);
    }
    
    @PutMapping("/info")
-   public ResponseEntity<PaymentAccountDto> updatePaymentAccountInfo(@RequestBody PaymentAccount paymentAccount,
+   public ResponseEntity<PaymentAccountDto> updatePaymentAccountInfo(@RequestBody PaymentAccountDto paymentAccountDto,
          @RequestParam(value = "mcUsername") String mcUsername) {
       try {
          PaymentAccount existPaymentAccount = paymentAccountService.getPaymentAccountInfo(mcUsername);
+         
+         existPaymentAccount.setMcUsername(paymentAccountDto.getMcUsername());
+         existPaymentAccount.setChangeDate(paymentAccountDto.getChangeDate());
+         existPaymentAccount.setContractorFirstName(paymentAccountDto.getContractorFirstName());
+         existPaymentAccount.setContractorInn(paymentAccountDto.getContractorInn());
+         existPaymentAccount.setContractorLastName(paymentAccountDto.getContractorLastName());
+         existPaymentAccount.setContractorPhone(paymentAccountDto.getContractorPhone());
+         existPaymentAccount.setContractorSecondName(paymentAccountDto.getContractorSecondName());
+         existPaymentAccount.setErrorCode(paymentAccountDto.getErrorCode());
+         existPaymentAccount.setErrorMessage(paymentAccountDto.getErrorMessage());
+         existPaymentAccount.setRequestId(paymentAccountDto.getRequestId());
+         existPaymentAccount.setStatus(paymentAccountDto.getStatus());
          
          return new ResponseEntity<>(PaymentAccountDto.fromPaymentAccount(paymentAccountService.save(existPaymentAccount)),
                HttpStatus.OK);
