@@ -18,6 +18,7 @@
       <postgresql.version>42.2.12</postgresql.version>
       <liquibase.version>4.0.0</liquibase.version>
       <jackson-datatype-jsr310.version>2.11.2</jackson-datatype-jsr310.version>
+      <opencsv.version>5.2</opencsv.version>
    </properties>
 
    <dependencies>
@@ -54,6 +55,11 @@
          <groupId>com.fasterxml.jackson.datatype</groupId>
          <artifactId>jackson-datatype-jsr310</artifactId>
          <version>${jackson-datatype-jsr310.version}</version>
+      </dependency>
+      <dependency>
+         <groupId>com.opencsv</groupId>
+         <artifactId>opencsv</artifactId>
+         <version>${opencsv.version}</version>
       </dependency>
    </dependencies>
 

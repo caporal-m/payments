@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kmikhails.paymentaccount.dto.PaymentAccountDto;
 import com.kmikhails.paymentaccount.dto.PaymentAccountListDto;
 import com.kmikhails.paymentaccount.model.PaymentAccount;
 import com.kmikhails.paymentaccount.service.PaymentAccountService;
+import com.kmikhails.paymentaccount.util.CsvParser;
 
 @RestController
 @RequestMapping("/account")
@@ -84,5 +86,15 @@ public class AccountController {
       List<PaymentAccount> paymentAccounts = paymentAccountService.getListByStatus(status, Sort.by(sortDirection, "changeDate"));
       
       return new PaymentAccountListDto(paymentAccounts);
+   }
+   
+   @GetMapping("/load/csv")
+   public void addPaymentAccountsFromFile(@RequestParam("file") MultipartFile file) {
+      if (file != null && !file.getOriginalFilename().isEmpty()) {
+         String filename = file.getOriginalFilename();
+         
+         List<PaymentAccount> paymentAccounts = CsvParser.parse(filename);
+         paymentAccounts.forEach(paymentAccount -> paymentAccountService.save(paymentAccount));
+      }
    }
 }
