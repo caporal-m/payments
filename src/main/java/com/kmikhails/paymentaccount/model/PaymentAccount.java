@@ -5,25 +5,40 @@ import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table; 
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size; 
 
 @Entity
 @Table(name = "payment_account")
 public class PaymentAccount {
 
    @Id
+   @NotNull
    private String mcUsername;
    
    private LocalDateTime changeDate;
 
+   @NotNull(message = "Firstname is a required field")
+   @Pattern(regexp = "^[а-яёА-ЯЁ]+")
    private String contractorFirstName;
 
+   @NotNull
+   @Size(min = 12, max = 12)
+   @Pattern(regexp = "\\d+", message = "Only digits required")
    private String contractorInn;
 
+   @NotNull(message = "Lastname is a required field")
+   @Pattern(regexp = "^[а-яёА-ЯЁ]+")
    private String contractorLastName;
 
+   @NotNull
+   @Pattern(regexp = "^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$", message = "Incorrect phone number")
    private String contractorPhone;
 
+   @NotNull(message = "Secondname is a required field")
+   @Pattern(regexp = "^[а-яёА-ЯЁ]+")
    private String contractorSecondName;
 
    private String errorCode;

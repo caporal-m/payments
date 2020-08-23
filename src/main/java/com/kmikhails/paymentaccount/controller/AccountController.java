@@ -3,6 +3,8 @@ package com.kmikhails.paymentaccount.controller;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -42,7 +44,7 @@ public class AccountController {
    }
    
    @PostMapping("/add")
-   public ResponseEntity<PaymentAccountDto> addPaymentAccountInfo(@RequestBody PaymentAccountDto paymentAccountDto) {
+   public ResponseEntity<PaymentAccountDto> addPaymentAccountInfo(@Valid @RequestBody PaymentAccountDto paymentAccountDto) {
       PaymentAccount paymentAccount = PaymentAccountDto.toPaymentAccount(paymentAccountDto);
       
       return new ResponseEntity<>(PaymentAccountDto.fromPaymentAccount(paymentAccountService.save(paymentAccount)),
@@ -50,7 +52,7 @@ public class AccountController {
    }
    
    @PutMapping("/info")
-   public ResponseEntity<PaymentAccountDto> updatePaymentAccountInfo(@RequestBody PaymentAccountDto paymentAccountDto,
+   public ResponseEntity<PaymentAccountDto> updatePaymentAccountInfo(@Valid @RequestBody PaymentAccountDto paymentAccountDto,
          @RequestParam(value = "mcUsername") String mcUsername) {
       try {
          PaymentAccount existPaymentAccount = paymentAccountService.getPaymentAccountInfo(mcUsername);

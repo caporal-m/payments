@@ -2,20 +2,46 @@ package com.kmikhails.paymentaccount.dto;
 
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 import com.kmikhails.paymentaccount.model.PaymentAccount;
 
 public class PaymentAccountDto {
-   private  String mcUsername;
-   private  LocalDateTime changeDate;
-   private  String contractorFirstName;
-   private  String contractorInn;
-   private  String contractorLastName;
-   private  String contractorPhone;
-   private  String contractorSecondName;
-   private  String errorCode;
-   private  String errorMessage;
-   private  String requestId;
-   private  String status;
+   @NotNull
+   private String mcUsername;
+   
+   private LocalDateTime changeDate;
+
+   @NotNull(message = "Firstname is a required field")
+   @Pattern(regexp = "^[а-яёА-ЯЁ]+")
+   private String contractorFirstName;
+
+   @NotNull
+   @Size(min = 12, max = 12)
+   @Pattern(regexp = "\\d+", message = "Only digits required")
+   private String contractorInn;
+
+   @NotNull(message = "Lastname is a required field")
+   @Pattern(regexp = "^[а-яёА-ЯЁ]+")
+   private String contractorLastName;
+
+   @NotNull
+   @Pattern(regexp = "^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$", message = "Incorrect phone number")
+   private String contractorPhone;
+
+   @NotNull(message = "Secondname is a required field")
+   @Pattern(regexp = "^[а-яёА-ЯЁ]+")
+   private String contractorSecondName;
+
+   private String errorCode;
+
+   private String errorMessage;
+
+   private String requestId;
+
+   private String status;
    
    public PaymentAccountDto() {
       
