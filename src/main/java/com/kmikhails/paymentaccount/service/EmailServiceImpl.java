@@ -21,15 +21,12 @@ public class EmailServiceImpl implements EmailService {
    @Value("${spring.mail.username}")
    private String username;
 
-   @Value("${spring.mail.password}")
-   private String password;
-
    @Autowired
-   private JavaMailSender javaEmailSender;
+   private JavaMailSender javaMailSender;
 
    @Override
    public void sendAttachmentEmail(String to, String subject, String text, File attachfile) throws MessagingException {
-      javaEmailSender.send(new MimeMessagePreparator() {
+      javaMailSender.send(new MimeMessagePreparator() {
 
          public void prepare(MimeMessage mimeMessage) throws Exception {
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
